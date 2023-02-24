@@ -6,12 +6,13 @@ import { Component } from 'react';
 const INITIAL_STATE = {
   contacts: [],
   name: '',
+  number: '',
 };
 
 export class App extends Component {
   state = { ...INITIAL_STATE };
 
-  handleChangeName = (name, value) => this.setState({ [name]: value });
+  handleChangeName = (name, value) => this.setState({ ...{ [name]: value } });
 
   handleChange = data => {
     this.setState(prevState => ({
@@ -20,18 +21,19 @@ export class App extends Component {
   };
 
   reset = () => {
-    this.setState(prevState => ({ ...prevState, name: '' }));
+    this.setState(prevState => ({ ...prevState, name: '', number: '' }));
   };
 
   render() {
-    const { name, contacts } = this.state;
+    const { name, number, contacts } = this.state;
     return (
       <>
         <PhonebookForm
           onChange={this.handleChange}
           onChangeName={this.handleChangeName}
           reset={this.reset}
-          value={name}
+          name={name}
+          number={number}
         />
         <Contacts contacts={contacts} />
         <GlobalStyle></GlobalStyle>

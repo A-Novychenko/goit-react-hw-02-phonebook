@@ -1,9 +1,13 @@
 export const Contacts = ({ contacts }) => (
-  <ul>
-    {contacts.map(({ name, id }) => (
-      <li key={id}>
-        <span>{name}</span>
-      </li>
-    ))}
-  </ul>
+  <>
+    <h2>Contacts</h2>
+    <ul>
+      {contacts.map(({ name, id, number }) => (
+        <li key={id}>
+          <span>{`${name}: `}</span>
+          <span>{number}</span>
+        </li>
+      ))}
+    </ul>
+  </>
 );
