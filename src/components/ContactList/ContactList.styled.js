@@ -9,5 +9,6 @@ export const Item = styled.li`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
   max-width: 360px;
 `;

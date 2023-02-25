@@ -13,5 +13,11 @@ export const Remove = styled.button`
   background-color: transparent;
   border: none;
   color: red;
+  border-radius: 4px;
   cursor: pointer;
+
+  :hover {
+    background-color: red;
+    color: white;
+  }
 `;
