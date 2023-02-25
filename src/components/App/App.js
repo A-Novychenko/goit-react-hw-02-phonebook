@@ -18,7 +18,7 @@ const INITIAL_STATE = {
 export class App extends Component {
   state = { ...INITIAL_STATE };
 
-  handleChangeName = (name, value) => this.setState({ ...{ [name]: value } });
+  handleChangeName = e => this.setState({ filter: e.currentTarget.value });
 
   handleChange = data => {
     this.setState(prevState => ({

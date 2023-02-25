@@ -1,78 +1,62 @@
-import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import 'yup-phone-lite';
 
 const INITIAL_STATE = {
   name: '',
-  number: '',
+  number: '+38',
 };
 
-export class ContactForm extends Component {
-  state = { ...INITIAL_STATE };
+const Schema = Yup.object().shape({
+  name: Yup.string().required(),
+  number: Yup.string()
+    .phone('UK', 'Please enter a valid phone number in the format for UKRAINE')
+    .required('A phone number is required'),
+});
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ ...{ [name]: value } });
-  };
-
-  handleForm = e => {
-    e.preventDefault();
-
+export const ContactForm = ({ contacts, onChange }) => {
+  const handleForm = (values, { resetForm }) => {
     const id = nanoid();
-    const {
-      elements: { name, number },
-    } = e.currentTarget;
-    const isInConntacts = this.props.contacts.find(
-      contact => contact.name === this.state.name
-    );
+    const { name, number } = values;
+    const isInConntacts = contacts.find(contact => contact.name === name);
 
     if (isInConntacts) {
-      alert(`${this.state.name} is already in contacts.`);
+      alert(`${name} is already in contacts.`);
       return;
     }
 
-    this.props.onChange({ id, name: name.value, number: number.value });
-    this.reset();
+    onChange({ id, name, number });
+    resetForm();
   };
 
-  reset() {
-    this.setState({ ...INITIAL_STATE });
-  }
-
-  render() {
-    const { name, number } = this.state;
-    return (
-      <>
-        <form onSubmit={this.handleForm}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              // required
-              value={name}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Number
-            <input
-              type="tel"
-              name="number"
-              //   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              //   required
-              value={number}
-              onChange={this.handleChange}
-            />
-          </label>
-          <button type="submit" disabled={!(name && number)}>
-            Add contact
-          </button>
-        </form>
-      </>
-    );
-  }
-}
+  return (
+    <Formik
+      initialValues={INITIAL_STATE}
+      validationSchema={Schema}
+      onSubmit={handleForm}
+    >
+      <Form>
+        <label>
+          Name
+          <Field
+            type="text"
+            name="name"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          />
+          <ErrorMessage name="name" component={'div'} />
+        </label>
+        <label>
+          Number
+          <Field
+            type="tel"
+            name="number"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          />
+          <ErrorMessage name="number" component={'div'} />
+        </label>
+        <button type="submit">Add contact</button>
+      </Form>
+    </Formik>
+  );
+};

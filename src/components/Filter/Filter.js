@@ -9,10 +9,7 @@ export const Filter = ({ filter, onChangeName }) => (
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
         value={filter}
-        onChange={e => {
-          const { name, value } = e.currentTarget;
-          onChangeName(name, value);
-        }}
+        onChange={onChangeName}
       ></input>
     </label>
   </>
