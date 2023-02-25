@@ -22,6 +22,14 @@ export class ContactForm extends Component {
     const {
       elements: { name, number },
     } = e.currentTarget;
+    const isInConntacts = this.props.contacts.find(
+      contact => contact.name === this.state.name
+    );
+
+    if (isInConntacts) {
+      alert(`${this.state.name} is already in contacts.`);
+      return;
+    }
 
     this.props.onChange({ id, name: name.value, number: number.value });
     this.reset();

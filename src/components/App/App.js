@@ -33,11 +33,11 @@ export class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, contacts } = this.state;
     return (
       <>
         <h1>Phonebook</h1>
-        <ContactForm onChange={this.handleChange} />
+        <ContactForm onChange={this.handleChange} contacts={contacts} />
 
         <h2>Contacts</h2>
         <Filter filter={filter} onChangeName={this.handleChangeName} />
