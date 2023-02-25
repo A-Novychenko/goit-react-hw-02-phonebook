@@ -1,3 +1,4 @@
+import PropTypes, { shape } from 'prop-types';
 import { nanoid } from 'nanoid';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -68,4 +69,15 @@ export const ContactForm = ({ contacts, onChange }) => {
       </FormWrap>
     </Formik>
   );
+};
+
+ContactForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    shape({
+      id: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
