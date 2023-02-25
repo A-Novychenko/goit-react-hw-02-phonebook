@@ -1,6 +1,8 @@
-import { PhonebookForm } from 'components/PhonebookForm';
-import { GlobalStyle } from 'constants/GlobalStyles';
 import { Component } from 'react';
+import { ContactForm } from 'components/ContactForm';
+import { GlobalStyle } from 'constants/GlobalStyles';
+import { ContactList } from 'components/ContactList';
+import { Filter } from 'components/Filter';
 
 const INITIAL_STATE = {
   contacts: [
@@ -10,8 +12,6 @@ const INITIAL_STATE = {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ],
   // contacts: [],
-  name: '',
-  number: '',
   filter: '',
 };
 
@@ -26,23 +26,22 @@ export class App extends Component {
     }));
   };
 
-  reset = () => {
-    this.setState(prevState => ({ ...prevState, name: '', number: '' }));
+  handleFilter = () => {
+    return this.state.contacts.filter(({ name }) =>
+      name.toLowerCase().trim().includes(this.state.filter.toLowerCase().trim())
+    );
   };
 
   render() {
-    const { name, number, filter, contacts } = this.state;
+    const { filter } = this.state;
     return (
       <>
-        <PhonebookForm
-          onChange={this.handleChange}
-          onChangeName={this.handleChangeName}
-          reset={this.reset}
-          name={name}
-          number={number}
-          filter={filter}
-          contacts={contacts}
-        />
+        <h1>Phonebook</h1>
+        <ContactForm onChange={this.handleChange} />
+
+        <h2>Contacts</h2>
+        <Filter filter={filter} onChangeName={this.handleChangeName} />
+        <ContactList filteredArr={this.handleFilter()} />
 
         <GlobalStyle></GlobalStyle>
       </>

@@ -1,13 +1,18 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
-import { Contacts } from 'components/Contacts';
+const INITIAL_STATE = {
+  name: '',
+  number: '',
+};
 
-export class PhonebookForm extends Component {
+export class ContactForm extends Component {
+  state = { ...INITIAL_STATE };
+
   handleChange = e => {
     const { name, value } = e.currentTarget;
 
-    this.props.onChangeName(name, value);
+    this.setState({ ...{ [name]: value } });
   };
 
   handleForm = e => {
@@ -19,14 +24,17 @@ export class PhonebookForm extends Component {
     } = e.currentTarget;
 
     this.props.onChange({ id, name: name.value, number: number.value });
-    this.props.reset();
+    this.reset();
   };
 
+  reset() {
+    this.setState({ ...INITIAL_STATE });
+  }
+
   render() {
-    const { name, number, filter, contacts } = this.props;
+    const { name, number } = this.state;
     return (
       <>
-        <h2>Phonebook</h2>
         <form onSubmit={this.handleForm}>
           <label>
             Name
@@ -52,13 +60,10 @@ export class PhonebookForm extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <button type="submit">Add contact</button>
+          <button type="submit" disabled={!(name && number)}>
+            Add contact
+          </button>
         </form>
-        <Contacts
-          contacts={contacts}
-          filter={filter}
-          onChange={this.handleChange}
-        />
       </>
     );
   }
