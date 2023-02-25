@@ -1,18 +1,19 @@
 import { Contact } from 'components/Contact';
+import { List, Item } from './ContactList.styled';
 
 export const ContactList = ({ filteredArr, onDelete }) => (
   <>
-    <ul>
+    <List>
       {filteredArr.map(({ name, id, number }) => (
-        <li key={id}>
+        <Item key={id}>
           <Contact
             name={name}
             number={number}
             id={id}
             onDelete={onDelete}
           ></Contact>
-        </li>
+        </Item>
       ))}
-    </ul>
+    </List>
   </>
 );

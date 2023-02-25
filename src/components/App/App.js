@@ -3,6 +3,7 @@ import { ContactForm } from 'components/ContactForm';
 import { GlobalStyle } from 'constants/GlobalStyles';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
+import { Container, Wrap, MainTitle, Title, StyleArround } from './App.styled';
 
 const INITIAL_STATE = {
   contacts: [
@@ -41,19 +42,22 @@ export class App extends Component {
   render() {
     const { filter, contacts } = this.state;
     return (
-      <>
-        <h1>Phonebook</h1>
-        <ContactForm onChange={this.handleChange} contacts={contacts} />
+      <Container>
+        <Wrap>
+          <MainTitle>Phonebook</MainTitle>
+          <ContactForm onChange={this.handleChange} contacts={contacts} />
 
-        <h2>Contacts</h2>
-        <Filter filter={filter} onChangeName={this.handleChangeName} />
-        <ContactList
-          filteredArr={this.handleFilter()}
-          onDelete={this.handleDelete}
-        />
+          <Title>Contacts</Title>
+          <Filter filter={filter} onChangeName={this.handleChangeName} />
+          <ContactList
+            filteredArr={this.handleFilter()}
+            onDelete={this.handleDelete}
+          />
 
-        <GlobalStyle></GlobalStyle>
-      </>
+          <GlobalStyle></GlobalStyle>
+        </Wrap>
+        <StyleArround />
+      </Container>
     );
   }
 }

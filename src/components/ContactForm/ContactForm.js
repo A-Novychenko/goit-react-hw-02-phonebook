@@ -1,7 +1,8 @@
 import { nanoid } from 'nanoid';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone-lite';
+import { FormWrap, Input, Label } from './ContactForm.styled';
 
 const INITIAL_STATE = {
   name: '',
@@ -36,27 +37,27 @@ export const ContactForm = ({ contacts, onChange }) => {
       validationSchema={Schema}
       onSubmit={handleForm}
     >
-      <Form>
-        <label>
+      <FormWrap>
+        <Label>
           Name
-          <Field
+          <Input
             type="text"
             name="name"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           />
           <ErrorMessage name="name" component={'div'} />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Number
-          <Field
+          <Input
             type="tel"
             name="number"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           />
           <ErrorMessage name="number" component={'div'} />
-        </label>
+        </Label>
         <button type="submit">Add contact</button>
-      </Form>
+      </FormWrap>
     </Formik>
   );
 };

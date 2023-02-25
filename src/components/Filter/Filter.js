@@ -1,8 +1,10 @@
+import { FilterBox, Label, Search } from './Filter.styled';
+
 export const Filter = ({ filter, onChangeName }) => (
-  <>
-    <label>
+  <FilterBox>
+    <Label>
       Find contacts by name
-      <input
+      <Search
         type="text"
         name="filter"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -10,7 +12,7 @@ export const Filter = ({ filter, onChangeName }) => (
         required
         value={filter}
         onChange={onChangeName}
-      ></input>
-    </label>
-  </>
+      ></Search>
+    </Label>
+  </FilterBox>
 );

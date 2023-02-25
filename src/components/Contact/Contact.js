@@ -1,9 +1,14 @@
+import { Name, Inner, Remove } from './Contact.styled';
+import { CiCircleRemove } from 'react-icons/ci';
+
 export const Contact = ({ name, number, id, onDelete }) => (
   <>
-    <span>{`${name}: `}</span>
-    <span>{number}</span>
-    <button type="button" onClick={() => onDelete(id)}>
-      Delete
-    </button>
+    <Name>{`${name}: `}</Name>
+    <Inner>
+      <span>{number}</span>
+      <Remove type="button" onClick={() => onDelete(id)}>
+        <CiCircleRemove size={20}>Delete</CiCircleRemove>
+      </Remove>
+    </Inner>
   </>
 );
