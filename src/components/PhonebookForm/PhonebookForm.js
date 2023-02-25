@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
+import { Contacts } from 'components/Contacts';
+
 export class PhonebookForm extends Component {
   handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -21,7 +23,7 @@ export class PhonebookForm extends Component {
   };
 
   render() {
-    const { name, number } = this.props;
+    const { name, number, filter, contacts } = this.props;
     return (
       <>
         <h2>Phonebook</h2>
@@ -52,6 +54,11 @@ export class PhonebookForm extends Component {
           </label>
           <button type="submit">Add contact</button>
         </form>
+        <Contacts
+          contacts={contacts}
+          filter={filter}
+          onChange={this.handleChange}
+        />
       </>
     );
   }
